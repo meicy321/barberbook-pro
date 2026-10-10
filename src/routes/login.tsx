@@ -14,8 +14,8 @@ type Search = { mode?: "signin" | "signup"; role?: SignupRole };
 
 export const Route = createFileRoute("/login")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    mode: s.mode === "signup" ? "signup" : "signin",
-    role: s.role ? normalizeSignupRole(s.role) : undefined,
+    mode: s["mode"] === "signup" ? "signup" : "signin",
+    role: s["role"] ? normalizeSignupRole(s["role"]) : undefined,
   }),
   head: () => ({
     meta: [
@@ -56,19 +56,19 @@ function LoginPage() {
         options: { emailRedirectTo: window.location.origin + "/dashboard", data: { role } },
       });
       setBusy(false);
-      if (error) return toast.error(error.message);
+      if (error) { toast.error(error.message); return; }
       setSent(true);
     } else {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       setBusy(false);
-      if (error) return toast.error(error.message);
+      if (error) { toast.error(error.message); return; }
       navigate({ to: "/dashboard" });
     }
   }
 
   async function google() {
     const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
-    if (result.error) return toast.error("Google sign-in failed");
+    if (result.error) { toast.error("Google sign-in failed"); return; }
     if (result.redirected) return;
     navigate({ to: "/dashboard" });
   }

@@ -8,8 +8,8 @@ type Search = { q?: string; service?: ServiceKind };
 
 export const Route = createFileRoute("/barbers")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    q: typeof s.q === "string" && s.q ? s.q : undefined,
-    service: SERVICE_KINDS.includes(s.service as ServiceKind) ? (s.service as ServiceKind) : undefined,
+    q: typeof s["q"] === "string" && s["q"] ? s["q"] : undefined,
+    service: SERVICE_KINDS.includes(s["service"] as ServiceKind) ? (s["service"] as ServiceKind) : undefined,
   }),
   head: () => ({
     meta: [
