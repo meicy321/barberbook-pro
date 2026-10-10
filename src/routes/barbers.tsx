@@ -4,7 +4,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { BarberCard } from "@/components/BarberCard";
 import { DEMO_BARBERS, SERVICE_KINDS, type ServiceKind } from "@/lib/barbers";
 
-type Search = { q?: string; service?: ServiceKind };
+type Search = { q?: string | undefined; service?: ServiceKind | undefined };
 
 export const Route = createFileRoute("/barbers")({
   validateSearch: (s: Record<string, unknown>): Search => ({

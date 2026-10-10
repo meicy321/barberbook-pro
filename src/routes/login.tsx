@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { normalizeSignupRole, type SignupRole } from "@/lib/roles";
 import heroRight from "@/assets/hero-right.jpg";
 
-type Search = { mode?: "signin" | "signup"; role?: SignupRole };
+type Search = { mode?: "signin" | "signup" | undefined; role?: SignupRole | undefined };
 
 export const Route = createFileRoute("/login")({
   validateSearch: (s: Record<string, unknown>): Search => ({

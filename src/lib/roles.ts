@@ -7,5 +7,5 @@ export function normalizeSignupRole(value: unknown): SignupRole {
 
 /** Read the role captured in auth user metadata; defaults to customer. */
 export function roleFromMetadata(meta: Record<string, unknown> | null | undefined): SignupRole {
-  return normalizeSignupRole(meta?.role);
+  return normalizeSignupRole(meta?.["role"]);
 }
