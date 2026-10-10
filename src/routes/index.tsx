@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { BarberCard } from "@/components/BarberCard";
-import { DEMO_BARBERS, SERVICE_KINDS } from "@/lib/barbers";
+import { DEMO_BARBERS, SERVICE_KINDS, type ServiceKind } from "@/lib/barbers";
 import heroLeft from "@/assets/hero-left.jpg";
 import heroRight from "@/assets/hero-right.jpg";
 
@@ -35,7 +35,7 @@ const SHOPS = ["Ironline", "Studio Lumen", "Old Guard", "Curl House", "Fade Soci
 function Index() {
   const navigate = useNavigate();
   const [q, setQ] = useState("");
-  const [service, setService] = useState<string>("Cut");
+  const [service, setService] = useState<ServiceKind>("Cut");
 
   return (
     <div className="min-h-screen">
@@ -69,7 +69,7 @@ function Index() {
             />
             <select
               value={service}
-              onChange={(e) => setService(e.target.value)}
+              onChange={(e) => setService(e.target.value as ServiceKind)}
               className="rounded-full bg-secondary px-3 py-2 text-sm outline-none"
               aria-label="Service"
             >
