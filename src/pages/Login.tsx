@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate, useSearchParams } from "react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Scissors } from "lucide-react";
@@ -8,30 +8,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { normalizeSignupRole, type SignupRole } from "@/lib/roles";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import heroRight from "@/assets/hero-right.jpg";
 
-type Search = { mode?: "signin" | "signup" | undefined; role?: SignupRole | undefined };
 
-export const Route = createFileRoute("/login")({
-  validateSearch: (s: Record<string, unknown>): Search => ({
-    mode: s["mode"] === "signup" ? "signup" : "signin",
-    role: s["role"] ? normalizeSignupRole(s["role"]) : undefined,
-  }),
-  head: () => ({
-    meta: [
-      { title: "Sign in or join — Barberly" },
-      { name: "description", content: "Sign in to Barberly, or create a customer or shop account." },
-      { property: "og:title", content: "Sign in or join — Barberly" },
-      { property: "og:description", content: "Create a customer or shop account on Barberly." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-  }),
-  component: LoginPage,
-});
-
-function LoginPage() {
-  const search = Route.useSearch();
+export default function Login() {
+  useDocumentTitle("Sign in or join — Barberly");
+  const [params] = useSearchParams();
+  const search = {
+    mode: params.get("mode") === "signup" ? ("signup" as const) : ("signin" as const),
+    role: params.get("role") ? normalizeSignupRole(params.get("role")) : undefined,
+  };
   const navigate = useNavigate();
   const [mode, setMode] = useState<"signin" | "signup">(search.mode ?? "signin");
   const [role, setRole] = useState<SignupRole>(search.role ?? "customer");
@@ -42,7 +29,7 @@ function LoginPage() {
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
-      if (data.user) navigate({ to: "/dashboard", replace: true });
+      if (data.user) navigate("/dashboard", { replace: true });
     });
   }, [navigate]);
 
@@ -62,7 +49,7 @@ function LoginPage() {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       setBusy(false);
       if (error) { toast.error(error.message); return; }
-      navigate({ to: "/dashboard" });
+      navigate("/dashboard");
     }
   }
 
@@ -70,7 +57,7 @@ function LoginPage() {
     const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
     if (result.error) { toast.error("Google sign-in failed"); return; }
     if (result.redirected) return;
-    navigate({ to: "/dashboard" });
+    navigate("/dashboard");
   }
 
   return (

@@ -1,24 +1,16 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { CalendarDays, Home, LogOut, Scissors, Search, Settings, Store, Users, Clock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { roleFromMetadata } from "@/lib/roles";
+import { useAuthUser } from "@/components/RequireAuth";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
-export const Route = createFileRoute("/_authenticated/dashboard")({
-  head: () => ({
-    meta: [
-      { title: "Your dashboard — Barberly" },
-      { name: "description", content: "Manage your Barberly bookings or shop." },
-      { property: "og:title", content: "Your dashboard — Barberly" },
-      { property: "og:description", content: "Manage your Barberly bookings or shop." },
-    ],
-  }),
-  component: Dashboard,
-});
 
-function Dashboard() {
-  const { user } = Route.useRouteContext();
+export default function Dashboard() {
+  useDocumentTitle("Your dashboard — Barberly");
+  const user = useAuthUser();
   const role = roleFromMetadata(user.user_metadata);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -27,7 +19,7 @@ function Dashboard() {
     await queryClient.cancelQueries();
     queryClient.clear();
     await supabase.auth.signOut();
-    navigate({ to: "/login", search: { mode: "signin" }, replace: true });
+    navigate("/login?mode=signin", { replace: true });
   }
 
   const nav =

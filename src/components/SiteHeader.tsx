@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, NavLink } from "react-router";
 import { Scissors } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuthSession } from "@/hooks/useAuthSession";
@@ -15,10 +15,13 @@ export function SiteHeader() {
           <span className="font-display text-xl font-semibold">Barberly</span>
         </Link>
         <nav className="hidden items-center gap-8 text-sm md:flex">
-          <Link to="/barbers" className="text-muted-foreground hover:text-foreground" activeProps={{ className: "text-foreground" }}>
+          <NavLink
+            to="/barbers"
+            className={({ isActive }) => (isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground")}
+          >
             Find a barber
-          </Link>
-          <Link to="/login" search={{ mode: "signup", role: "shop" }} className="text-muted-foreground hover:text-foreground">
+          </NavLink>
+          <Link to="/login?mode=signup&role=shop" className="text-muted-foreground hover:text-foreground">
             For barbers
           </Link>
         </nav>
@@ -29,10 +32,10 @@ export function SiteHeader() {
         ) : (
           <div className="flex items-center gap-2">
             <Button asChild variant="ghost" size="sm">
-              <Link to="/login" search={{ mode: "signin" }}>Sign in</Link>
+              <Link to="/login?mode=signin">Sign in</Link>
             </Button>
             <Button asChild size="sm" className="rounded-full px-5">
-              <Link to="/login" search={{ mode: "signup" }}>Get started</Link>
+              <Link to="/login?mode=signup">Get started</Link>
             </Button>
           </div>
         )}

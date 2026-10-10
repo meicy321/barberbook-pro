@@ -1,27 +1,15 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "react-router";
 import { useState } from "react";
 import { BadgeCheck, CalendarClock, ShieldCheck, Star, Search, MapPin, Scissors } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { BarberCard } from "@/components/BarberCard";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { DEMO_BARBERS, SERVICE_KINDS, type ServiceKind } from "@/lib/barbers";
 import heroLeft from "@/assets/hero-left.jpg";
 import heroRight from "@/assets/hero-right.jpg";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Barberly — Find a great barber, book in a few taps" },
-      { name: "description", content: "Discover verified barbers and stylists near you, compare cut, color, perm and beard prices, and book an open slot online." },
-      { property: "og:title", content: "Barberly — Find a great barber, book in a few taps" },
-      { property: "og:description", content: "Discover verified barbers near you and book an open slot online in seconds." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: Index,
-});
 
 const FEATURES = [
   { icon: BadgeCheck, title: "Verified Barbers", text: "Every profile is reviewed before it goes live." },
@@ -32,7 +20,8 @@ const FEATURES = [
 
 const SHOPS = ["Ironline", "Studio Lumen", "Old Guard", "Curl House", "Fade Society", "North & Comb"];
 
-function Index() {
+export default function Landing() {
+  useDocumentTitle("Barberly — Find a great barber, book in a few taps");
   const navigate = useNavigate();
   const [q, setQ] = useState("");
   const [service, setService] = useState<ServiceKind>("Cut");
@@ -56,7 +45,9 @@ function Index() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              navigate({ to: "/barbers", search: { q: q || undefined, service } });
+              const params = new URLSearchParams({ service });
+              if (q) params.set("q", q);
+              navigate(`/barbers?${params}`);
             }}
             className="mx-auto mt-8 flex max-w-lg items-center gap-2 rounded-full border border-border bg-card p-2 shadow-soft"
           >
@@ -83,7 +74,7 @@ function Index() {
           </form>
           <div className="mt-4 flex justify-center gap-2 text-xs text-muted-foreground">
             {SERVICE_KINDS.map((k) => (
-              <Link key={k} to="/barbers" search={{ service: k }} className="rounded-full border border-border px-3 py-1 hover:bg-secondary">
+              <Link key={k} to={`/barbers?service=${k}`} className="rounded-full border border-border px-3 py-1 hover:bg-secondary">
                 {k}
               </Link>
             ))}
@@ -140,7 +131,7 @@ function Index() {
             <p className="mt-3 opacity-80">Create profiles, set starting prices for cut, color, perm and beard, and publish your schedule. Customers book the open slots.</p>
           </div>
           <Button asChild size="lg" variant="secondary" className="rounded-full">
-            <Link to="/login" search={{ mode: "signup", role: "shop" }}>List your shop</Link>
+            <Link to="/login?mode=signup&role=shop">List your shop</Link>
           </Button>
         </div>
       </section>
