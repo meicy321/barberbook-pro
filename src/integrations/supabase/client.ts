@@ -1,4 +1,4 @@
-// Supabase client for the browser (static SPA). Reads VITE_SUPABASE_* at build time.
+// Supabase client for the project's own Supabase instance (see VITE_SUPABASE_* in .env).
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 import { brokeredPreviewStorage } from './previewAuthStorage';

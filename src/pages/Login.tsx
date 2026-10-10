@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Scissors } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -51,13 +50,6 @@ export default function Login() {
       if (error) { toast.error(error.message); return; }
       navigate("/dashboard");
     }
-  }
-
-  async function google() {
-    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
-    if (result.error) { toast.error("Google sign-in failed"); return; }
-    if (result.redirected) return;
-    navigate("/dashboard");
   }
 
   return (
@@ -110,13 +102,6 @@ export default function Login() {
                   {busy ? "Please wait…" : mode === "signup" ? (role === "shop" ? "Create shop account" : "Create account") : "Sign in"}
                 </Button>
               </form>
-
-              {mode === "signin" && (
-                <>
-                  <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground"><span className="h-px flex-1 bg-border" />or<span className="h-px flex-1 bg-border" /></div>
-                  <Button variant="outline" className="w-full rounded-full" size="lg" onClick={google}>Continue with Google</Button>
-                </>
-              )}
 
               <p className="mt-8 text-center text-sm text-muted-foreground">
                 {mode === "signup" ? "Already have an account? " : "New to Barberly? "}
