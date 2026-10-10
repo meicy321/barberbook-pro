@@ -1,14 +1,16 @@
-# Welcome to your Lovable project
+# BarberBook Pro
+
+Build a SaaS landing page + authenticated app shell for Barberly, a barber /hair-stylist booking marketplace where customers find a stylist and book an appointment online — and where barbers list a profile and publish their schedule. Targeted at people who want to discover a good barber and book a slot in a few taps. The site is barber-centric: barbers are the product. A barber offers services (Cut / Color / Perm / Beard) at a starting price; "styles" are not separate listings.
 
 This project was built with [Lovable](https://lovable.dev).
 
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/4ada1192-fd49-4f4f-a962-31150486ba19).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +22,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
