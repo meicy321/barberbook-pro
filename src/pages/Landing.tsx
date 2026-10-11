@@ -32,7 +32,7 @@ export default function Landing() {
 
       {/* Hero: split photos flanking a centered search */}
       <section className="mx-auto grid max-w-7xl items-center gap-8 px-6 pt-10 pb-16 lg:grid-cols-[1fr_1.3fr_1fr]">
-        <img src={heroLeft} alt="Barber giving a skin fade" width={768} height={1024} className="sketch ink-photo hidden aspect-[3/4] w-full object-cover shadow-soft lg:block" />
+        <img src={heroLeft} alt="Barber giving a skin fade" width={768} height={1024} className="sketch hidden aspect-[3/4] w-full object-cover shadow-soft lg:block" />
         <div className="text-center">
           <p className="eyebrow">Barbers & stylists near you</p>
           <h1 className="mt-4 text-5xl leading-[1.05] font-medium md:text-6xl">
@@ -80,7 +80,7 @@ export default function Landing() {
             ))}
           </div>
         </div>
-        <img src={heroRight} alt="Stylist shaping long wavy hair" width={768} height={1024} className="sketch ink-photo hidden aspect-[3/4] w-full object-cover shadow-soft lg:block" />
+        <img src={heroRight} alt="Stylist shaping long wavy hair" width={768} height={1024} className="sketch hidden aspect-[3/4] w-full object-cover shadow-soft lg:block" />
       </section>
 
       {/* Trust strip */}

@@ -157,8 +157,3 @@
   background-image: repeating-linear-gradient(0deg, var(--cherry) 0 4px, var(--paper) 4px 8px);
 }
 
-/* Turn photos into ink-on-paper prints */
-@utility ink-photo {
-  filter: grayscale(1) contrast(1.25) brightness(1.05);
-  mix-blend-mode: multiply;
-}

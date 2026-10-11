@@ -11,7 +11,7 @@ export function BarberCard({ barber }: { barber: DemoBarber }) {
           loading="lazy"
           width={768}
           height={960}
-          className="ink-photo size-full object-cover transition duration-500 group-hover:scale-105 group-hover:filter-none"
+          className="size-full object-cover transition duration-500 group-hover:scale-105"
         />
       </div>
       <div className="space-y-3 p-5">
