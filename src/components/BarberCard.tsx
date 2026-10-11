@@ -3,15 +3,15 @@ import type { DemoBarber } from "@/lib/barbers";
 
 export function BarberCard({ barber }: { barber: DemoBarber }) {
   return (
-    <article className="group overflow-hidden rounded-2xl border border-border bg-card transition-shadow hover:shadow-soft">
-      <div className="aspect-[4/5] overflow-hidden bg-sand">
+    <article className="sketch group overflow-hidden bg-card transition-shadow hover:shadow-soft">
+      <div className="aspect-[4/5] overflow-hidden border-b-2 border-border bg-card">
         <img
           src={barber.photo}
           alt={`${barber.name}, ${barber.shop}`}
           loading="lazy"
           width={768}
           height={960}
-          className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="ink-photo size-full object-cover transition duration-500 group-hover:scale-105 group-hover:filter-none"
         />
       </div>
       <div className="space-y-3 p-5">
@@ -28,7 +28,7 @@ export function BarberCard({ barber }: { barber: DemoBarber }) {
         </div>
         <ul className="flex flex-wrap gap-2">
           {barber.services.map((s) => (
-            <li key={s.kind} className="rounded-full bg-secondary px-3 py-1 text-xs text-secondary-foreground">
+            <li key={s.kind} className="rounded-full border border-border bg-card px-3 py-1 text-xs text-secondary-foreground">
               {s.kind} <span className="text-muted-foreground">from NT${s.from}</span>
             </li>
           ))}

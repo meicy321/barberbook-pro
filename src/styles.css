@@ -66,43 +66,49 @@
 }
 
 :root {
-  --radius: 0.875rem;
-  --font-display: "Fraunces", Georgia, serif;
-  --font-sans: "Manrope", system-ui, sans-serif;
-  --background: oklch(0.975 0.012 80);
-  --foreground: oklch(0.24 0.025 55);
-  --card: oklch(0.99 0.006 85);
-  --card-foreground: oklch(0.24 0.025 55);
-  --popover: oklch(0.99 0.006 85);
-  --popover-foreground: oklch(0.24 0.025 55);
-  --primary: oklch(0.3 0.035 50);
-  --primary-foreground: oklch(0.97 0.012 80);
-  --secondary: oklch(0.93 0.025 78);
-  --secondary-foreground: oklch(0.3 0.035 50);
-  --muted: oklch(0.94 0.018 80);
-  --muted-foreground: oklch(0.5 0.03 60);
-  --accent: oklch(0.68 0.11 60);
-  --accent-foreground: oklch(0.2 0.03 50);
-  --destructive: oklch(0.577 0.2 27);
+  /* "Ink sketch" theme: paper, black ink line art, tangerine + red accents */
+  --radius: 0.75rem;
+  --font-display: "Kalam", "Comic Sans MS", cursive;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --ink: oklch(0.17 0.005 60);
+  --paper: oklch(0.965 0.008 85);
+  --tangerine: oklch(0.68 0.19 45);
+  --cherry: oklch(0.58 0.22 27);
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: oklch(0.985 0.005 85);
+  --card-foreground: var(--ink);
+  --popover: oklch(0.985 0.005 85);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--paper);
+  --secondary: oklch(0.93 0.01 80);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.93 0.01 80);
+  --muted-foreground: oklch(0.42 0.01 60);
+  --accent: var(--tangerine);
+  --accent-foreground: var(--ink);
+  --destructive: var(--cherry);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.88 0.025 75);
-  --input: oklch(0.88 0.025 75);
-  --ring: oklch(0.68 0.11 60);
-  --sand: oklch(0.9 0.035 75);
-  --chart-1: oklch(0.68 0.11 60);
-  --chart-2: oklch(0.55 0.06 140);
-  --chart-3: oklch(0.45 0.05 50);
-  --chart-4: oklch(0.8 0.08 80);
-  --chart-5: oklch(0.6 0.09 30);
-  --sidebar: oklch(0.95 0.018 80);
-  --sidebar-foreground: oklch(0.24 0.025 55);
-  --sidebar-primary: oklch(0.3 0.035 50);
-  --sidebar-primary-foreground: oklch(0.97 0.012 80);
-  --sidebar-accent: oklch(0.9 0.03 78);
-  --sidebar-accent-foreground: oklch(0.24 0.025 55);
-  --sidebar-border: oklch(0.88 0.025 75);
-  --sidebar-ring: oklch(0.68 0.11 60);
-  --shadow-soft: 0 20px 50px -24px oklch(0.3 0.035 50 / 0.35);
+  --border: var(--ink);
+  --input: var(--ink);
+  --ring: var(--tangerine);
+  --sand: oklch(0.92 0.045 60);
+  --chart-1: var(--tangerine);
+  --chart-2: var(--ink);
+  --chart-3: var(--cherry);
+  --chart-4: oklch(0.8 0.1 60);
+  --chart-5: oklch(0.55 0.01 60);
+  --sidebar: oklch(0.94 0.01 80);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--ink);
+  --sidebar-primary-foreground: var(--paper);
+  --sidebar-accent: oklch(0.92 0.045 60);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: var(--ink);
+  --sidebar-ring: var(--tangerine);
+  --shadow-soft: 4px 5px 0 0 var(--ink);
+  --sketch-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
 }
 
 @layer base {
@@ -117,7 +123,8 @@
   }
   h1, h2, h3 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
 }
 
@@ -126,4 +133,32 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-muted-foreground);
+}
+
+/* Hand-drawn outline: uneven corners like a pen-drawn box */
+@utility sketch {
+  border: 2px solid var(--ink);
+  border-radius: var(--sketch-radius);
+}
+
+/* Polka dots, like the scarf */
+@utility dots {
+  background-image: radial-gradient(var(--ink) 22%, transparent 24%);
+  background-size: 14px 14px;
+}
+
+/* Short vertical pen dashes, like the coat's hatching */
+@utility hatch {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cg stroke='%23222' stroke-width='1.2' stroke-linecap='round' opacity='.35'%3E%3Cpath d='M4 3v5M15 6v5M9 13v5M19 15v4'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Red-and-white sock stripes */
+@utility stripes {
+  background-image: repeating-linear-gradient(0deg, var(--cherry) 0 4px, var(--paper) 4px 8px);
+}
+
+/* Turn photos into ink-on-paper prints */
+@utility ink-photo {
+  filter: grayscale(1) contrast(1.25) brightness(1.05);
+  mix-blend-mode: multiply;
 }
