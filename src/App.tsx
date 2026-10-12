@@ -10,6 +10,9 @@ import Landing from "@/pages/Landing";
 import Login from "@/pages/Login";
 import Barbers from "@/pages/Barbers";
 import Dashboard from "@/pages/Dashboard";
+import ShopSetup from "@/pages/ShopSetup";
+import ShopBookings from "@/pages/ShopBookings";
+import { ShopLayout } from "@/components/ShopLayout";
 
 const queryClient = new QueryClient();
 
@@ -96,7 +99,16 @@ export const routes = [
       { path: "/barbers", element: <Barbers /> },
       {
         element: <RequireAuth />,
-        children: [{ path: "/dashboard", element: <Dashboard /> }],
+        children: [
+          { path: "/dashboard", element: <Dashboard /> },
+          {
+            element: <ShopLayout />,
+            children: [
+              { path: "/shop", element: <ShopSetup /> },
+              { path: "/shop/bookings", element: <ShopBookings /> },
+            ],
+          },
+        ],
       },
       { path: "*", element: <NotFoundComponent /> },
     ],

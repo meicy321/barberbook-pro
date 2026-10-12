@@ -7,9 +7,12 @@ import { routes } from "@/App";
 
 // Match routes without rendering: pages need Supabase and the network.
 describe("App routing", () => {
-  it.each(["/", "/login", "/barbers", "/dashboard"])("matches a page for %s instead of not found", (path) => {
-    const router = createMemoryRouter(routes, { initialEntries: [path] });
-    const leaf = router.state.matches.at(-1);
-    expect(leaf?.route.path).toBe(path);
-  });
+  it.each(["/", "/login", "/barbers", "/dashboard", "/shop", "/shop/bookings"])(
+    "matches a page for %s instead of not found",
+    (path) => {
+      const router = createMemoryRouter(routes, { initialEntries: [path] });
+      const leaf = router.state.matches.at(-1);
+      expect(leaf?.route.path).toBe(path);
+    },
+  );
 });
