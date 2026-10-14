@@ -21,6 +21,14 @@ export function SiteHeader() {
           >
             Find a barber
           </NavLink>
+          {user && (
+            <NavLink
+              to="/bookings"
+              className={({ isActive }) => (isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground")}
+            >
+              My bookings
+            </NavLink>
+          )}
           <Link to="/login?mode=signup&role=shop" className="text-muted-foreground hover:text-foreground">
             For barbers
           </Link>

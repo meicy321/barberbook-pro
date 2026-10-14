@@ -9,6 +9,8 @@ import { RequireAuth } from "@/components/RequireAuth";
 import Landing from "@/pages/Landing";
 import Login from "@/pages/Login";
 import Barbers from "@/pages/Barbers";
+import BarberDetail from "@/pages/BarberDetail";
+import MyBookings from "@/pages/MyBookings";
 import Dashboard from "@/pages/Dashboard";
 import ShopSetup from "@/pages/ShopSetup";
 import ShopBookings from "@/pages/ShopBookings";
@@ -97,10 +99,12 @@ export const routes = [
       { path: "/", element: <Landing /> },
       { path: "/login", element: <Login /> },
       { path: "/barbers", element: <Barbers /> },
+      { path: "/barbers/:id", element: <BarberDetail /> },
       {
         element: <RequireAuth />,
         children: [
           { path: "/dashboard", element: <Dashboard /> },
+          { path: "/bookings", element: <MyBookings /> },
           {
             element: <ShopLayout />,
             children: [

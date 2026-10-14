@@ -40,7 +40,12 @@ export default function Dashboard() {
       to: "/barbers",
       cta: "Browse barbers",
     },
-    { title: "Upcoming bookings", text: "You have no bookings yet." },
+    {
+      title: "My bookings",
+      text: "See and cancel the appointments you've booked.",
+      to: "/bookings",
+      cta: "View bookings",
+    },
     {
       title: "Run a barbershop?",
       text: "Open your shop on Barberly and take bookings.",

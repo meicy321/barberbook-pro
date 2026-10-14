@@ -18,6 +18,8 @@ export default function Login() {
     mode: params.get("mode") === "signup" ? ("signup" as const) : ("signin" as const),
     role: params.get("role") ? normalizeSignupRole(params.get("role")) : undefined,
   };
+  // Where to return after sign-in (e.g. the barber page whose Book button sent us here).
+  const next = safeNextPath(params.get("next"));
   const navigate = useNavigate();
   const [mode, setMode] = useState<"signin" | "signup">(search.mode ?? "signin");
   const [role, setRole] = useState<SignupRole>(search.role ?? "customer");
@@ -29,9 +31,9 @@ export default function Login() {
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
       if (data.user)
-        fetchRole(data.user.id).then((r) => navigate(homePathForRole(r), { replace: true }));
+        fetchRole(data.user.id).then((r) => navigate(next ?? homePathForRole(r), { replace: true }));
     });
-  }, [navigate]);
+  }, [navigate, next]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -60,7 +62,7 @@ export default function Login() {
       }
       const signedInRole = await fetchRole(data.user.id);
       setBusy(false);
-      navigate(homePathForRole(signedInRole));
+      navigate(next ?? homePathForRole(signedInRole));
     }
   }
 
@@ -170,4 +172,9 @@ export default function Login() {
       />
     </div>
   );
+}
+
+/** Only same-site paths ("/barbers/…"), never "//evil.com" or full URLs. */
+function safeNextPath(value: string | null) {
+  return value && value.startsWith("/") && !value.startsWith("//") ? value : null;
 }

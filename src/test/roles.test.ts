@@ -18,8 +18,8 @@ describe("profile roles", () => {
     expect(roleFromProfile("shop")).toBe("shop");
     expect(roleFromProfile(null)).toBe("customer");
   });
-  it("sends shops to the shop area and customers to their account", () => {
+  it("sends shops to the shop area and customers to browse barbers", () => {
     expect(homePathForRole("shop")).toBe("/shop");
-    expect(homePathForRole("customer")).toBe("/dashboard");
+    expect(homePathForRole("customer")).toBe("/barbers");
   });
 });

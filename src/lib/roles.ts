@@ -11,7 +11,7 @@ export function roleFromProfile(value: unknown): AppRole {
   return value === "shop" || value === "admin" ? value : "customer";
 }
 
-/** Where a signed-in user lands. M1.1 only branches shop vs customer. */
+/** Where a signed-in user lands: shops manage their shop, customers browse barbers. */
 export function homePathForRole(role: AppRole): string {
-  return role === "shop" ? "/shop" : "/dashboard";
+  return role === "shop" ? "/shop" : "/barbers";
 }
