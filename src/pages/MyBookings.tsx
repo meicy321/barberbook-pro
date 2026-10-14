@@ -13,7 +13,7 @@ import { errMessage } from "@/lib/errors";
 import { formatMoney, usePlatformSettings } from "@/lib/shop";
 
 const STATUS_LABELS: Record<string, string> = {
-  pending_payment: "Pending payment",
+  pending_payment: "Reserved",
   paid: "Paid",
   cancelled: "Cancelled",
 };
@@ -76,12 +76,12 @@ export default function MyBookings() {
                   <p className="text-sm text-muted-foreground">
                     {b.starts_at
                       ? `${formatDateTime(b.starts_at)}${b.ends_at ? `–${formatTime(b.ends_at)}` : ""}`
-                      : "Time released (cancelled)"}{" "}
+                      : "Time unavailable"}{" "}
                     · {formatMoney(b.price, settings.data)}
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Badge variant={b.status === "cancelled" ? "outline" : "secondary"}>
+                  <Badge variant={b.status === "cancelled" ? "outline" : "secondary"} className="uppercase tracking-wide">
                     {STATUS_LABELS[b.status] ?? b.status}
                   </Badge>
                   {b.status !== "cancelled" && (
